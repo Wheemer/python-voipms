@@ -88,15 +88,17 @@ class VoipMsClient(object):
         :returns: The JSON output from the API
         """
         url = self.post_url
+        payload = dict(parameters or {})
         headers = {
             'api_username' : self.voip_user,
             'api_password' : self.voip_api_password,
-            "method" : method
+            "method" : method,
+            "content_type": "json",
         }
-        parameters.update(headers)
+        payload.update(headers)
 
         try:
-            r = requests.post(url, data=parameters)
+            r = requests.post(url, data=payload)
         except requests.exceptions.RequestException as e:
             raise e
         else:
