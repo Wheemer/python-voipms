@@ -7,10 +7,10 @@ name = "pypi"
 voipms = {editable = true, path = "."}
 
 [dev-packages]
-pytest = "*"
-autopep8 = "*"
-build = "*"
-twine = "*"
+pytest = ">=9.1.1"
+autopep8 = ">=2.3.2"
+build = ">=1.5.0"
+twine = ">=6.2.0"
 
 [requires]
-python_version = "3.7"
+python_version = "3.14"

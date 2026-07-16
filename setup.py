@@ -15,11 +15,12 @@ CLASSIFIERS = [
     'Intended Audience :: Developers',
     'Topic :: Software Development :: Libraries :: Python Modules',
     'License :: OSI Approved :: MIT License',
-    'Programming Language :: Python :: 2.7',
-    'Programming Language :: Python :: 3.4',
-    'Programming Language :: Python :: 3.5',
-    'Programming Language :: Python :: 3.6',
-    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13',
+    'Programming Language :: Python :: 3.14',
 ]
 INSTALL_REQUIRES = [
     'requests>=2.34.2',
@@ -73,5 +74,6 @@ if __name__ == "__main__":
         packages=PACKAGES,
         zip_safe=False,
         classifiers=CLASSIFIERS,
+        python_requires=">=3.10",
         install_requires=INSTALL_REQUIRES,
     )
