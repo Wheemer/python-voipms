@@ -17,9 +17,9 @@ class FakeResponse:
 def test_post_sends_json_content_type_and_does_not_mutate_parameters(monkeypatch):
     captured = {}
 
-    def fake_post(url, data):
+    def fake_post(url, files):
         captured["url"] = url
-        captured["data"] = data
+        captured["files"] = files
         return FakeResponse({"status": "success", "balance": "1.23"})
 
     monkeypatch.setattr("voipms.voipmsclient.requests.post", fake_post)
@@ -29,8 +29,8 @@ def test_post_sends_json_content_type_and_does_not_mutate_parameters(monkeypatch
 
     assert result["balance"] == "1.23"
     assert params == {"advanced": True}
-    assert captured["data"]["api_username"] == "user@example.com"
-    assert captured["data"]["api_password"] == "secret"
-    assert captured["data"]["method"] == "getBalance"
-    assert captured["data"]["content_type"] == "json"
-    assert captured["data"]["advanced"] is True
+    assert captured["files"]["api_username"] == (None, "user@example.com")
+    assert captured["files"]["api_password"] == (None, "secret")
+    assert captured["files"]["method"] == (None, "getBalance")
+    assert captured["files"]["content_type"] == (None, "json")
+    assert captured["files"]["advanced"] == (None, "True")

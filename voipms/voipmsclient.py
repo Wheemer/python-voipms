@@ -97,8 +97,10 @@ class VoipMsClient(object):
         }
         payload.update(headers)
 
+        multipart_payload = {key: (None, str(value)) for key, value in payload.items()}
+
         try:
-            r = requests.post(url, data=payload)
+            r = requests.post(url, files=multipart_payload)
         except requests.exceptions.RequestException as e:
             raise e
         else:
