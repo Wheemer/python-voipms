@@ -14,7 +14,7 @@ class FakeResponse:
         return self._payload
 
 
-def test_post_sends_json_content_type_and_does_not_mutate_parameters(monkeypatch):
+def test_post_sends_multipart_json_request_and_does_not_mutate_parameters(monkeypatch):
     captured = {}
 
     def fake_post(url, files):
