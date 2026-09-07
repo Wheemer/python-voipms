@@ -13,7 +13,7 @@ class VoipMsClient(object):
     """
     Voip.ms class to communicate with the v1 REST API
     """
-    def __init__(self, voip_user, voip_api_password):
+    def __init__(self, voip_user, voip_api_password, request_timeout=(5, 20)):
         """
         Initialize the class with you voip_user and voip_api_password.
 
@@ -21,12 +21,15 @@ class VoipMsClient(object):
         :type voip_user: :py:class:`str`
         :param voip_api_password: voip.ms API Password
         :type voip_api_password: :py:class:`str`
+        :param request_timeout: Requests connect/read timeout in seconds
+        :type request_timeout: :py:class:`float` or tuple
         """
         super(VoipMsClient, self).__init__()
         self.base_url = 'https://voip.ms/api/v1/rest.php?api_username={}&api_password={}&'.format(voip_user, voip_api_password)
         self.post_url = 'https://voip.ms/api/v1/rest.php'
         self.voip_user = voip_user
         self.voip_api_password = voip_api_password
+        self.request_timeout = request_timeout
 
     def _error_code(self, status):
         """
@@ -64,7 +67,7 @@ class VoipMsClient(object):
         url = self.base_url + urlencode(query_set, safe='@:').replace('%2F', '/').replace('%3A', ':').replace('%0D%0A', '+').replace('%0A', '+').replace('%21', '+')
 
         try:
-            r = requests.get(url)
+            r = requests.get(url, timeout=self.request_timeout)
         except requests.exceptions.RequestException as e:
             raise e
         else:
@@ -100,7 +103,7 @@ class VoipMsClient(object):
         multipart_payload = {key: (None, str(value)) for key, value in payload.items()}
 
         try:
-            r = requests.post(url, files=multipart_payload)
+            r = requests.post(url, files=multipart_payload, timeout=self.request_timeout)
         except requests.exceptions.RequestException as e:
             raise e
         else:
